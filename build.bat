@@ -1,0 +1,1 @@
+nuitka --standalone --onefile --lto=yes --output-dir=out hook_qq_music.py
