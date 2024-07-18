@@ -16,6 +16,7 @@ if not os.path.exists(output_dir):
 
 # 获取用户音乐目录路径
 home = str(Path.home()) + "\\Music\\VipSongsDownload"
+home = os.path.abspath(home)
 
 # 遍历目录下的所有文件
 for root, dirs, files in os.walk(home):
