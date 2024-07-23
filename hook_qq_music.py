@@ -1,5 +1,6 @@
 import frida
 import os
+import hashlib
 from pathlib import Path
 
 # 挂钩 QQ 音乐进程
@@ -37,13 +38,16 @@ for root, dirs, files in os.walk(home):
             if os.path.exists(output_file_path):
                 print(f"File {output_file_path} 已存在，跳过.")
                 continue
+
+            tmp_file_path = hashlib.md5(file.encode()).hexdigest()
+            tmp_file_path = os.path.join(output_dir, tmp_file_path)
+            tmp_file_path = os.path.abspath(tmp_file_path)
             
             # 调用脚本中的 decrypt 方法解密文件
-            data = script.exports_sync.decrypt(os.path.join(root, file))
+            data = script.exports_sync.decrypt(os.path.join(root, file), tmp_file_path)
             
-            # 将解密后的数据写入新的文件
-            with open(output_file_path, "wb") as f:
-                f.write(data)
+            # 重命名临时文件
+            os.rename(tmp_file_path, output_file_path)
 
 # 分离会话
 session.detach()
