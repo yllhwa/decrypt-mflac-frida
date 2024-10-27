@@ -47,7 +47,12 @@ for root, dirs, files in os.walk(home):
             data = script.exports_sync.decrypt(os.path.join(root, file), tmp_file_path)
             
             # 重命名临时文件
-            os.rename(tmp_file_path, output_file_path)
+            while 1:
+                if (data):
+                    os.rename(tmp_file_path, output_file_path)
+                    break
+                else:
+                    pass
 
 # 分离会话
 session.detach()
