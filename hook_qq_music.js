@@ -78,5 +78,6 @@ rpc.exports = {
     
     var tmpFile = new File(tmpFileName, "wb");
     tmpFile.write(data);
+    return true;
   },
 };
